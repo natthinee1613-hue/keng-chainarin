@@ -95,43 +95,48 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
         </div>
       </div>
 
-      {/* Organizational Hierarchy Chart (Matching Reference Image) */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-md text-slate-800 overflow-x-auto">
-        <div className="min-w-[1040px] flex flex-col items-center">
+      {/* Organizational Hierarchy Chart (Royal Thai Police Official Command Briefing Board) */}
+      <div className="bg-gradient-to-b from-[#0b1626] via-[#102037] to-[#091322] border-2 border-[#b88c54]/70 rounded-3xl p-6 sm:p-8 shadow-2xl text-slate-100 overflow-x-auto relative">
+        {/* Dignified Royal Thai Police Watermark & Inner Border */}
+        <div className="absolute inset-0 rounded-3xl border border-[#b88c54]/20 pointer-events-none" />
+
+        <div className="min-w-[1040px] flex flex-col items-center relative z-10">
           {/* Level 0: สำนักงานตำรวจแห่งชาติ (ตร.) */}
           <div className="flex flex-col items-center mb-4">
             <div
-              className="px-8 py-3.5 rounded-2xl shadow-xl border-2 border-amber-400/90 flex items-center justify-center gap-2.5 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300"
+              className="px-8 py-3.5 rounded-2xl shadow-xl border-2 border-[#d4af37] flex items-center justify-center gap-2.5 relative overflow-hidden group hover:scale-[1.01] transition-transform duration-300"
               style={{
                 background: 'linear-gradient(135deg, #4f1419 0%, #631922 45%, #380d12 100%)',
-                boxShadow: '0 8px 24px -4px rgba(79, 20, 25, 0.4), 0 0 0 1px rgba(245, 158, 11, 0.3)',
+                boxShadow: '0 8px 24px -4px rgba(79, 20, 25, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.4)',
               }}
             >
               <div className="gold-light-ray"></div>
               <Shield className="w-5 h-5 text-amber-300 drop-shadow flex-shrink-0" />
-              <span className="font-bold text-lg sm:text-xl tracking-wider font-['Prompt'] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+              <span className="font-bold text-lg sm:text-xl tracking-wider font-['Prompt'] text-[#fff7ed] drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
                 สำนักงานตำรวจแห่งชาติ (ตร.)
               </span>
             </div>
-            <div className="w-0.5 h-6 bg-slate-400"></div>
+            <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#b88c54] rounded-full"></div>
           </div>
 
           {/* Level 1: ภ.9 Main Node */}
           <div className="flex flex-col items-center mb-6">
-            <div className="bg-[#334e68] text-white px-8 py-3.5 rounded-xl shadow-md flex flex-col items-center">
-              <div className="font-bold text-lg font-['Prompt'] text-white">
-                ตำรวจภูธรภาค 9
+            <div className="bg-gradient-to-r from-[#102238] via-[#183152] to-[#0d1c2e] text-white px-9 py-4 rounded-2xl shadow-xl border-2 border-[#b88c54] flex flex-col items-center hover:scale-[1.01] transition-transform">
+              <div className="font-bold text-lg sm:text-xl font-['Prompt'] text-[#faebd7] tracking-wide flex items-center gap-2.5">
+                <span className="text-amber-400 text-sm">★</span>
+                <span>ตำรวจภูธรภาค 9</span>
+                <span className="text-amber-400 text-sm">★</span>
               </div>
-              <div className="text-xs font-mono font-bold text-slate-100 bg-[#243b53]/90 px-3 py-1 rounded-full mt-1 border border-white/20">
-                [รวม: {grandPos.toLocaleString()} / {grandOcc.toLocaleString()}]
+              <div className="text-xs font-mono font-bold text-[#faebd7] bg-[#091422] px-4 py-1 rounded-full mt-2 border border-[#b88c54]/50 shadow-xs">
+                [รวมอัตรากำลังพล: {grandPos.toLocaleString()} / ครองจริง: {grandOcc.toLocaleString()} นาย]
               </div>
             </div>
-            <div className="w-0.5 h-6 bg-slate-400"></div>
+            <div className="w-1 h-6 bg-gradient-to-b from-[#b88c54] to-[#a0743b] rounded-full"></div>
           </div>
 
-          {/* Branch Connector Bar */}
+          {/* Branch Connector Bar (Royal Police Gold Rail) */}
           <div className="w-full flex justify-between px-16 relative">
-            <div className="absolute top-0 left-16 right-16 h-0.5 bg-slate-400"></div>
+            <div className="absolute top-0 left-16 right-16 h-1 bg-gradient-to-r from-[#b88c54] via-[#d4af37] to-[#b88c54] rounded-full shadow-sm"></div>
           </div>
 
           {/* Level 2: 4 Main Branches / 4 Functions */}
@@ -153,43 +158,43 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
               <div className="grid grid-cols-3 gap-1.5 w-full text-[11px]">
                 <div
                   onClick={() => onNavigateToZone && onNavigateToZone('yala')}
-                  className="bg-[#545946] border border-[#444837] text-white p-1.5 rounded-lg text-center shadow-xs cursor-pointer hover:opacity-90 transition"
+                  className="bg-[#132238] border border-[#b88c54]/60 text-[#faebd7] p-2 rounded-xl text-center shadow-md cursor-pointer hover:border-[#d4af37] hover:scale-105 transition"
                   title="คลิกเพื่อดูตาราง บก.สส.จชต."
                 >
                   <div className="font-bold leading-tight">บก.สส.จชต.</div>
-                  <div className="text-[10px] text-amber-100 font-mono">[{jctSum.totalAll_pos}/{jctSum.totalAll_occ}]</div>
+                  <div className="text-[10px] text-[#faebd7] font-mono mt-0.5">[{jctSum.totalAll_pos}/{jctSum.totalAll_occ}]</div>
                 </div>
                 <div
                   onClick={() => onNavigateToZone && onNavigateToZone('yala')}
-                  className="bg-white border border-slate-300 text-slate-800 p-1.5 rounded-lg text-center shadow-xs cursor-pointer hover:bg-slate-50 transition"
+                  className="bg-[#241a10] border border-[#8c6738]/60 text-[#faebd7] p-2 rounded-xl text-center shadow-md cursor-pointer hover:border-[#b88c54] hover:scale-105 transition"
                   title="คลิกเพื่อดูตาราง ภ.จว.ยะลา"
                 >
                   <div className="font-bold leading-tight">ภ.จว.ยะลา</div>
-                  <div className="text-[10px] text-slate-500 font-mono">[{yalaSum.totalAll_pos}/{yalaSum.totalAll_occ}]</div>
+                  <div className="text-[10px] text-stone-300 font-mono mt-0.5">[{yalaSum.totalAll_pos}/{yalaSum.totalAll_occ}]</div>
                 </div>
                 <div
                   onClick={() => onNavigateToZone && onNavigateToZone('yala')}
-                  className="bg-[#3e5647] border border-[#2f4236] text-white p-1.5 rounded-lg text-center shadow-xs cursor-pointer hover:opacity-90 transition"
+                  className="bg-[#14261b] border border-[#558e69]/60 text-[#e1f3e7] p-2 rounded-xl text-center shadow-md cursor-pointer hover:border-[#74b58c] hover:scale-105 transition"
                   title="คลิกเพื่อดูตาราง ศฝร.ภ.9"
                 >
                   <div className="font-bold leading-tight">ศฝร.ภ.9</div>
-                  <div className="text-[10px] text-emerald-100 font-mono">[{sfrSum.totalAll_pos}/{sfrSum.totalAll_occ}]</div>
+                  <div className="text-[10px] text-emerald-200 font-mono mt-0.5">[{sfrSum.totalAll_pos}/{sfrSum.totalAll_occ}]</div>
                 </div>
               </div>
 
               {/* Breakdown: หน่วยอำนวยการ vs สภ. */}
               <div className="grid grid-cols-2 gap-2 w-full">
-                <div className="bg-[#b35e38] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#9c4f2d]">
-                  <div className="font-bold border-b border-white/30 pb-1 mb-1.5 text-center text-white">
+                <div className="bg-gradient-to-br from-[#3b2314] via-[#2c1a0e] to-[#1f120a] text-white p-3 rounded-2xl shadow-lg text-xs border border-[#8c5732]/70 backdrop-blur-sm">
+                  <div className="font-bold border-b border-[#b88c54]/30 pb-1 mb-1.5 text-center text-[#faebd7]">
                     หน่วยอำนวยการ<br />และสนับสนุน
-                    <div className="text-[10px] text-orange-100 font-mono">[{yalaBreakdown.adminPos}/{yalaBreakdown.adminOcc}]</div>
+                    <div className="text-[10px] text-[#faebd7] font-mono bg-[#b88c54]/20 px-2 py-0.5 rounded-full inline-block mt-1 border border-[#b88c54]/40">[{yalaBreakdown.adminPos}/{yalaBreakdown.adminOcc}]</div>
                   </div>
-                  <ul className="space-y-1 text-[11px] text-white">
+                  <ul className="space-y-1 text-[11px] text-stone-300">
                     {yalaBreakdown.admin.slice(0, 5).map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className="truncate cursor-pointer hover:underline"
+                        className="truncate cursor-pointer hover:text-[#faebd7] hover:translate-x-0.5 transition-all"
                         title="คลิกดูตัวคนในหน่วยนี้"
                       >
                         • {u.name}
@@ -198,17 +203,17 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                   </ul>
                 </div>
 
-                <div className="bg-[#4e6854] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#3e5343]">
-                  <div className="font-bold border-b border-white/30 pb-1 mb-1.5 text-center text-white">
+                <div className="bg-gradient-to-br from-[#1e2e21] via-[#162319] to-[#0f1711] text-white p-3 rounded-2xl shadow-lg text-xs border border-[#487353]/70 backdrop-blur-sm">
+                  <div className="font-bold border-b border-[#558e69]/30 pb-1 mb-1.5 text-center text-[#e1f3e7]">
                     สภ. ({yalaBreakdown.sp.length} แห่ง)
-                    <div className="text-[10px] text-emerald-100 font-mono">[{yalaBreakdown.spPos}/{yalaBreakdown.spOcc}]</div>
+                    <div className="text-[10px] text-[#e1f3e7] font-mono bg-[#407352]/20 px-2 py-0.5 rounded-full inline-block mt-1 border border-[#558e69]/40">[{yalaBreakdown.spPos}/{yalaBreakdown.spOcc}]</div>
                   </div>
-                  <ul className="space-y-1 text-[11px] text-white max-h-48 overflow-y-auto">
+                  <ul className="space-y-1 text-[11px] text-stone-300 max-h-48 overflow-y-auto">
                     {yalaBreakdown.sp.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className="truncate cursor-pointer hover:underline"
+                        className="truncate cursor-pointer hover:text-[#e1f3e7] hover:translate-x-0.5 transition-all"
                         title="คลิกดูตัวคนใน สภ. นี้"
                       >
                         • {u.name}
@@ -234,24 +239,24 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
 
               <div
                 onClick={() => onNavigateToZone && onNavigateToZone('pattani')}
-                className="w-full bg-white border border-slate-300 text-slate-800 p-2 rounded-lg text-center shadow-xs cursor-pointer hover:bg-slate-50 transition"
+                className="w-full bg-[#102238] border border-[#4a7bb5]/60 text-slate-100 p-2.5 rounded-xl text-center shadow-md cursor-pointer hover:border-[#6fa4e3] transition"
               >
-                <div className="font-bold text-xs text-slate-800">ภ.จว.ปัตตานี (21 หน่วย)</div>
-                <div className="text-[11px] text-slate-500 font-mono">[{ptnSum.totalAll_pos}/{ptnSum.totalAll_occ}]</div>
+                <div className="font-bold text-xs text-[#faebd7]">ภ.จว.ปัตตานี (21 หน่วย)</div>
+                <div className="text-[11px] text-[#e0edfb] font-mono mt-0.5">[{ptnSum.totalAll_pos}/{ptnSum.totalAll_occ}]</div>
               </div>
 
               <div className="grid grid-cols-2 gap-2 w-full">
-                <div className="bg-[#b35e38] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#9c4f2d]">
-                  <div className="font-bold border-b border-white/30 pb-1 mb-1.5 text-center text-white">
+                <div className="bg-gradient-to-br from-[#3b2314] via-[#2c1a0e] to-[#1f120a] text-white p-3 rounded-2xl shadow-lg text-xs border border-[#8c5732]/70 backdrop-blur-sm">
+                  <div className="font-bold border-b border-[#b88c54]/30 pb-1 mb-1.5 text-center text-[#faebd7]">
                     หน่วยอำนวยการ<br />และสนับสนุน
-                    <div className="text-[10px] text-orange-100 font-mono">[{pattaniBreakdown.adminPos}/{pattaniBreakdown.adminOcc}]</div>
+                    <div className="text-[10px] text-[#faebd7] font-mono bg-[#b88c54]/20 px-2 py-0.5 rounded-full inline-block mt-1 border border-[#b88c54]/40">[{pattaniBreakdown.adminPos}/{pattaniBreakdown.adminOcc}]</div>
                   </div>
-                  <ul className="space-y-1 text-[11px] text-white">
+                  <ul className="space-y-1 text-[11px] text-stone-300">
                     {pattaniBreakdown.admin.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className="truncate cursor-pointer hover:underline"
+                        className="truncate cursor-pointer hover:text-[#faebd7] hover:translate-x-0.5 transition-all"
                         title="คลิกดูตัวคนในหน่วยนี้"
                       >
                         • {u.name}
@@ -260,17 +265,17 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                   </ul>
                 </div>
 
-                <div className="bg-[#8f5132] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#794328]">
-                  <div className="font-bold border-b border-white/30 pb-1 mb-1.5 text-center text-white">
+                <div className="bg-gradient-to-br from-[#12243d] via-[#0d1a2c] to-[#09121f] text-white p-3 rounded-2xl shadow-lg text-xs border border-[#3b6291]/70 backdrop-blur-sm">
+                  <div className="font-bold border-b border-[#4a7bb5]/30 pb-1 mb-1.5 text-center text-[#e0edfb]">
                     สภ. ({pattaniBreakdown.sp.length} แห่ง)
-                    <div className="text-[10px] text-amber-100 font-mono">[{pattaniBreakdown.spPos}/{pattaniBreakdown.spOcc}]</div>
+                    <div className="text-[10px] text-[#e0edfb] font-mono bg-[#3b6ea8]/20 px-2 py-0.5 rounded-full inline-block mt-1 border border-[#4a7bb5]/40">[{pattaniBreakdown.spPos}/{pattaniBreakdown.spOcc}]</div>
                   </div>
-                  <ul className="space-y-1 text-[11px] text-white max-h-48 overflow-y-auto">
+                  <ul className="space-y-1 text-[11px] text-stone-300 max-h-48 overflow-y-auto">
                     {pattaniBreakdown.sp.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className="truncate cursor-pointer hover:underline"
+                        className="truncate cursor-pointer hover:text-[#e0edfb] hover:translate-x-0.5 transition-all"
                         title="คลิกดูตัวคนใน สภ. นี้"
                       >
                         • {u.name}
@@ -296,24 +301,24 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
 
               <div
                 onClick={() => onNavigateToZone && onNavigateToZone('narathiwat')}
-                className="w-full bg-white border border-slate-300 text-slate-800 p-2 rounded-lg text-center shadow-xs cursor-pointer hover:bg-slate-50 transition"
+                className="w-full bg-[#14281c] border border-[#558e69]/60 text-slate-100 p-2.5 rounded-xl text-center shadow-md cursor-pointer hover:border-[#74b58c] transition"
               >
-                <div className="font-bold text-xs text-slate-800">ภ.จว.นราธิวาส (24 หน่วย)</div>
-                <div className="text-[11px] text-slate-500 font-mono">[{nrtSum.totalAll_pos}/{nrtSum.totalAll_occ}]</div>
+                <div className="font-bold text-xs text-[#faebd7]">ภ.จว.นราธิวาส (24 หน่วย)</div>
+                <div className="text-[11px] text-[#e1f3e7] font-mono mt-0.5">[{nrtSum.totalAll_pos}/{nrtSum.totalAll_occ}]</div>
               </div>
 
               <div className="grid grid-cols-2 gap-2 w-full">
-                <div className="bg-[#4e6854] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#3e5343]">
-                  <div className="font-bold border-b border-white/30 pb-1 mb-1.5 text-center text-white">
+                <div className="bg-gradient-to-br from-[#3b2314] via-[#2c1a0e] to-[#1f120a] text-white p-3 rounded-2xl shadow-lg text-xs border border-[#8c5732]/70 backdrop-blur-sm">
+                  <div className="font-bold border-b border-[#b88c54]/30 pb-1 mb-1.5 text-center text-[#faebd7]">
                     หน่วยอำนวยการ<br />และสนับสนุน
-                    <div className="text-[10px] text-emerald-100 font-mono">[{narathiwatBreakdown.adminPos}/{narathiwatBreakdown.adminOcc}]</div>
+                    <div className="text-[10px] text-[#faebd7] font-mono bg-[#b88c54]/20 px-2 py-0.5 rounded-full inline-block mt-1 border border-[#b88c54]/40">[{narathiwatBreakdown.adminPos}/{narathiwatBreakdown.adminOcc}]</div>
                   </div>
-                  <ul className="space-y-1 text-[11px] text-white">
+                  <ul className="space-y-1 text-[11px] text-stone-300">
                     {narathiwatBreakdown.admin.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className="truncate cursor-pointer hover:underline"
+                        className="truncate cursor-pointer hover:text-[#faebd7] hover:translate-x-0.5 transition-all"
                         title="คลิกดูตัวคนในหน่วยนี้"
                       >
                         • {u.name}
@@ -322,17 +327,17 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                   </ul>
                 </div>
 
-                <div className="bg-[#354f3d] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#273a2d]">
-                  <div className="font-bold border-b border-white/30 pb-1 mb-1.5 text-center text-white">
+                <div className="bg-gradient-to-br from-[#1a3323] via-[#13261a] to-[#0c1811] text-white p-3 rounded-2xl shadow-lg text-xs border border-[#4a7d5b]/70 backdrop-blur-sm">
+                  <div className="font-bold border-b border-[#558e69]/30 pb-1 mb-1.5 text-center text-[#e1f3e7]">
                     สภ. ({narathiwatBreakdown.sp.length} แห่ง)
-                    <div className="text-[10px] text-emerald-100 font-mono">[{narathiwatBreakdown.spPos}/{narathiwatBreakdown.spOcc}]</div>
+                    <div className="text-[10px] text-[#e1f3e7] font-mono bg-[#407352]/20 px-2 py-0.5 rounded-full inline-block mt-1 border border-[#558e69]/40">[{narathiwatBreakdown.spPos}/{narathiwatBreakdown.spOcc}]</div>
                   </div>
-                  <ul className="space-y-1 text-[11px] text-white max-h-48 overflow-y-auto">
+                  <ul className="space-y-1 text-[11px] text-stone-300 max-h-48 overflow-y-auto">
                     {narathiwatBreakdown.sp.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className="truncate cursor-pointer hover:underline"
+                        className="truncate cursor-pointer hover:text-[#e1f3e7] hover:translate-x-0.5 transition-all"
                         title="คลิกดูตัวคนใน สภ. นี้"
                       >
                         • {u.name}
@@ -358,27 +363,27 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
 
               <div
                 onClick={() => onNavigateToZone && onNavigateToZone('songkhla_risk')}
-                className="w-full bg-white border border-slate-300 text-slate-800 p-2 rounded-lg text-center shadow-xs cursor-pointer hover:bg-slate-50 transition"
+                className="w-full bg-[#3b0d12] border border-[#ad3843]/60 text-slate-100 p-2.5 rounded-xl text-center shadow-md cursor-pointer hover:border-[#cf4c58] transition"
               >
-                <div className="font-bold text-xs text-slate-800">ภ.จว.สงขลา (เฉพาะ 4 อำเภอ 8 สภ.)</div>
-                <div className="text-[11px] font-mono font-bold text-slate-600">
+                <div className="font-bold text-xs text-[#faebd7]">ภ.จว.สงขลา (เฉพาะ 4 อำเภอ 8 สภ.)</div>
+                <div className="text-[11px] font-mono font-bold text-[#fce8ea] mt-0.5">
                   [{songkhlaRiskPos}/{songkhlaRiskOcc}]
                 </div>
               </div>
 
               {/* 4 Districts sub-grid */}
               <div className="grid grid-cols-2 gap-2 w-full">
-                <div className="bg-[#546a7b] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#445664]">
-                  <div className="font-bold text-center border-b border-white/30 pb-1 mb-1 text-white">
+                <div className="bg-gradient-to-br from-[#2f0c10] via-[#24090c] to-[#170507] text-white p-2.5 rounded-xl shadow-md text-xs border border-[#752129]/70">
+                  <div className="font-bold text-center border-b border-[#ad3843]/30 pb-1 mb-1 text-[#fce8ea]">
                     อ.นาทวี
                   </div>
-                  <ul className="text-[11px] space-y-1 text-white">
+                  <ul className="text-[11px] space-y-1 text-stone-300">
                     <li
                       onClick={() => {
                         const u = records.find(r => r.name.includes('สภ.นาทวี'));
                         if (u) handleUnitClick(u);
                       }}
-                      className="cursor-pointer hover:underline"
+                      className="cursor-pointer hover:text-[#faebd7] transition-colors"
                     >
                       • สภ.นาทวี
                     </li>
@@ -387,24 +392,24 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                         const u = records.find(r => r.name.includes('สภ.สะท้อน'));
                         if (u) handleUnitClick(u);
                       }}
-                      className="cursor-pointer hover:underline"
+                      className="cursor-pointer hover:text-[#faebd7] transition-colors"
                     >
                       • สภ.สะท้อน
                     </li>
                   </ul>
                 </div>
 
-                <div className="bg-[#6c867b] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#587066]">
-                  <div className="font-bold text-center border-b border-white/30 pb-1 mb-1 text-white">
+                <div className="bg-gradient-to-br from-[#2f0c10] via-[#24090c] to-[#170507] text-white p-2.5 rounded-xl shadow-md text-xs border border-[#752129]/70">
+                  <div className="font-bold text-center border-b border-[#ad3843]/30 pb-1 mb-1 text-[#fce8ea]">
                     อ.เทพา
                   </div>
-                  <ul className="text-[11px] space-y-1 text-white">
+                  <ul className="text-[11px] space-y-1 text-stone-300">
                     <li
                       onClick={() => {
                         const u = records.find(r => r.name.includes('สภ.เทพา'));
                         if (u) handleUnitClick(u);
                       }}
-                      className="cursor-pointer hover:underline"
+                      className="cursor-pointer hover:text-[#faebd7] transition-colors"
                     >
                       • สภ.เทพา
                     </li>
@@ -413,24 +418,24 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                         const u = records.find(r => r.name.includes('สภ.ห้วยปลิง'));
                         if (u) handleUnitClick(u);
                       }}
-                      className="cursor-pointer hover:underline"
+                      className="cursor-pointer hover:text-[#faebd7] transition-colors"
                     >
                       • สภ.ห้วยปลิง
                     </li>
                   </ul>
                 </div>
 
-                <div className="bg-[#4f6b64] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#3e5650]">
-                  <div className="font-bold text-center border-b border-white/30 pb-1 mb-1 text-white">
+                <div className="bg-gradient-to-br from-[#2f0c10] via-[#24090c] to-[#170507] text-white p-2.5 rounded-xl shadow-md text-xs border border-[#752129]/70">
+                  <div className="font-bold text-center border-b border-[#ad3843]/30 pb-1 mb-1 text-[#fce8ea]">
                     อ.สะบ้าย้อย
                   </div>
-                  <ul className="text-[11px] space-y-1 text-white">
+                  <ul className="text-[11px] space-y-1 text-stone-300">
                     <li
                       onClick={() => {
                         const u = records.find(r => r.name.includes('สภ.สะบ้าย้อย'));
                         if (u) handleUnitClick(u);
                       }}
-                      className="cursor-pointer hover:underline"
+                      className="cursor-pointer hover:text-[#faebd7] transition-colors"
                     >
                       • สภ.สะบ้าย้อย
                     </li>
@@ -439,24 +444,24 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                         const u = records.find(r => r.name.includes('สภ.บ้านโหนด'));
                         if (u) handleUnitClick(u);
                       }}
-                      className="cursor-pointer hover:underline"
+                      className="cursor-pointer hover:text-[#faebd7] transition-colors"
                     >
                       • สภ.บ้านโหนด
                     </li>
                   </ul>
                 </div>
 
-                <div className="bg-[#3d443e] text-white p-2.5 rounded-xl shadow-xs text-xs border border-[#2f3530]">
-                  <div className="font-bold text-center border-b border-white/30 pb-1 mb-1 text-white">
+                <div className="bg-gradient-to-br from-[#2f0c10] via-[#24090c] to-[#170507] text-white p-2.5 rounded-xl shadow-md text-xs border border-[#752129]/70">
+                  <div className="font-bold text-center border-b border-[#ad3843]/30 pb-1 mb-1 text-[#fce8ea]">
                     อ.จะนะ
                   </div>
-                  <ul className="text-[11px] space-y-1 text-white">
+                  <ul className="text-[11px] space-y-1 text-stone-300">
                     <li
                       onClick={() => {
                         const u = records.find(r => r.name.includes('สภ.จะนะ'));
                         if (u) handleUnitClick(u);
                       }}
-                      className="cursor-pointer hover:underline"
+                      className="cursor-pointer hover:text-[#faebd7] transition-colors"
                     >
                       • สภ.จะนะ
                     </li>
@@ -465,7 +470,7 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                         const u = records.find(r => r.name.includes('สภ.ควนมีด'));
                         if (u) handleUnitClick(u);
                       }}
-                      className="cursor-pointer hover:underline"
+                      className="cursor-pointer hover:text-[#faebd7] transition-colors"
                     >
                       • สภ.ควนมีด
                     </li>
@@ -497,152 +502,152 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
           <table className="w-full border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="text-white">
-                <th className="px-4 py-2.5 text-left font-bold rounded-tl-lg bg-[#1e2329]">หน่วยงานหลัก / พื้นที่</th>
-                <th className="px-4 py-2.5 text-center font-bold bg-[#b5934a]">อัตราตำแหน่ง</th>
-                <th className="px-4 py-2.5 text-center font-bold bg-[#6b8979]">คนครอง (ตัวคนจริง)</th>
-                <th className="px-4 py-2.5 text-center font-bold bg-[#b3603d]">อัตราการครองคน (%)</th>
-                <th className="px-4 py-2.5 text-center font-bold bg-[#bc7563]">ขาดแคลน (นาย)</th>
-                <th className="px-4 py-2.5 text-center font-bold bg-[#454747] rounded-tr-lg">การจัดการ</th>
+                <th className="px-4 py-3 text-left font-bold rounded-tl-xl bg-[#0f1d30] text-[#faebd7] border-b-2 border-[#b88c54]">หน่วยงานหลัก / พื้นที่</th>
+                <th className="px-4 py-3 text-center font-bold bg-[#1a3352] text-[#e0edfb] border-b-2 border-[#4a7bb5]">อัตราตำแหน่ง</th>
+                <th className="px-4 py-3 text-center font-bold bg-[#1c3826] text-[#e1f3e7] border-b-2 border-[#558e69]">คนครอง (ตัวคนจริง)</th>
+                <th className="px-4 py-3 text-center font-bold bg-[#5c4021] text-[#faebd7] border-b-2 border-[#b88c54]">อัตราการครองคน (%)</th>
+                <th className="px-4 py-3 text-center font-bold bg-[#541218] text-[#fce8ea] border-b-2 border-[#ad3843]">ขาดแคลน (นาย)</th>
+                <th className="px-4 py-3 text-center font-bold bg-[#182333] text-[#faebd7] rounded-tr-xl border-b-2 border-slate-600">การจัดการ</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 font-['Prompt']">
               <tr
                 onClick={() => onNavigateToZone && onNavigateToZone('yala')}
-                className="hover:bg-slate-50/80 cursor-pointer transition"
+                className="hover:bg-amber-50/50 cursor-pointer transition"
               >
                 <td className="px-4 py-2.5 font-medium text-slate-900 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#8c8269]"></span>
-                  <span>ภ.จว.ยะลา (รวม จว.ยะลา)</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#b88c54] shadow-xs"></span>
+                  <span className="font-semibold">ภ.จว.ยะลา (รวม จว.ยะลา)</span>
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-slate-700">{yalaSum.totalAll_pos.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#2e4d39]">{yalaSum.totalAll_occ.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#9c4927] font-bold">
+                <td className="px-4 py-2.5 text-center font-mono text-slate-700 font-semibold">{yalaSum.totalAll_pos.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#1c3826]">{yalaSum.totalAll_occ.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono text-[#785427] font-bold">
                   {yalaSum.totalAll_pos > 0 ? ((yalaSum.totalAll_occ / yalaSum.totalAll_pos) * 100).toFixed(1) : 0}%
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#b04332] font-semibold">
+                <td className="px-4 py-2.5 text-center font-mono text-[#8f2731] font-bold">
                   -{(yalaSum.totalAll_pos - yalaSum.totalAll_occ).toLocaleString()}
                 </td>
                 <td className="px-4 py-2.5 text-center">
-                  <span className="text-xs text-slate-600 font-medium hover:text-slate-900 hover:underline">เปิดตารางตัวคน →</span>
+                  <span className="text-xs text-[#1a3352] font-semibold hover:text-[#0f1d30] hover:underline">เปิดตารางตัวคน →</span>
                 </td>
               </tr>
               <tr
                 onClick={() => onNavigateToZone && onNavigateToZone('yala')}
-                className="hover:bg-slate-50/80 cursor-pointer transition"
+                className="hover:bg-blue-50/50 cursor-pointer transition"
               >
                 <td className="px-4 py-2.5 font-medium text-slate-900 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#545946]"></span>
-                  <span>บก.สส.จชต.</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#3b6ea8] shadow-xs"></span>
+                  <span className="font-semibold">บก.สส.จชต.</span>
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-slate-700">{jctSum.totalAll_pos.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#2e4d39]">{jctSum.totalAll_occ.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#9c4927] font-bold">
+                <td className="px-4 py-2.5 text-center font-mono text-slate-700 font-semibold">{jctSum.totalAll_pos.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#1c3826]">{jctSum.totalAll_occ.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono text-[#785427] font-bold">
                   {jctSum.totalAll_pos > 0 ? ((jctSum.totalAll_occ / jctSum.totalAll_pos) * 100).toFixed(1) : 0}%
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#b04332] font-semibold">
+                <td className="px-4 py-2.5 text-center font-mono text-[#8f2731] font-bold">
                   -{(jctSum.totalAll_pos - jctSum.totalAll_occ).toLocaleString()}
                 </td>
                 <td className="px-4 py-2.5 text-center">
-                  <span className="text-xs text-slate-600 font-medium hover:text-slate-900 hover:underline">เปิดตารางตัวคน →</span>
+                  <span className="text-xs text-[#1a3352] font-semibold hover:text-[#0f1d30] hover:underline">เปิดตารางตัวคน →</span>
                 </td>
               </tr>
               <tr
                 onClick={() => onNavigateToZone && onNavigateToZone('yala')}
-                className="hover:bg-slate-50/80 cursor-pointer transition"
+                className="hover:bg-emerald-50/50 cursor-pointer transition"
               >
                 <td className="px-4 py-2.5 font-medium text-slate-900 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#3e5647]"></span>
-                  <span>ศฝร.ภ.9</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#407352] shadow-xs"></span>
+                  <span className="font-semibold">ศฝร.ภ.9</span>
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-slate-700">{sfrSum.totalAll_pos.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#2e4d39]">{sfrSum.totalAll_occ.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#9c4927] font-bold">
+                <td className="px-4 py-2.5 text-center font-mono text-slate-700 font-semibold">{sfrSum.totalAll_pos.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#1c3826]">{sfrSum.totalAll_occ.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono text-[#785427] font-bold">
                   {sfrSum.totalAll_pos > 0 ? ((sfrSum.totalAll_occ / sfrSum.totalAll_pos) * 100).toFixed(1) : 0}%
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#b04332] font-semibold">
+                <td className="px-4 py-2.5 text-center font-mono text-[#8f2731] font-bold">
                   -{(sfrSum.totalAll_pos - sfrSum.totalAll_occ).toLocaleString()}
                 </td>
                 <td className="px-4 py-2.5 text-center">
-                  <span className="text-xs text-slate-600 font-medium hover:text-slate-900 hover:underline">เปิดตารางตัวคน →</span>
+                  <span className="text-xs text-[#1a3352] font-semibold hover:text-[#0f1d30] hover:underline">เปิดตารางตัวคน →</span>
                 </td>
               </tr>
               <tr
                 onClick={() => onNavigateToZone && onNavigateToZone('pattani')}
-                className="hover:bg-slate-50/80 cursor-pointer transition"
+                className="hover:bg-blue-50/50 cursor-pointer transition"
               >
                 <td className="px-4 py-2.5 font-medium text-slate-900 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#8f5132]"></span>
-                  <span>ภ.จว.ปัตตานี (จว.ปัตตานี)</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#2a5d99] shadow-xs"></span>
+                  <span className="font-semibold">ภ.จว.ปัตตานี (จว.ปัตตานี)</span>
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-slate-700">{ptnSum.totalAll_pos.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#2e4d39]">{ptnSum.totalAll_occ.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#9c4927] font-bold">
+                <td className="px-4 py-2.5 text-center font-mono text-slate-700 font-semibold">{ptnSum.totalAll_pos.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#1c3826]">{ptnSum.totalAll_occ.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono text-[#785427] font-bold">
                   {ptnSum.totalAll_pos > 0 ? ((ptnSum.totalAll_occ / ptnSum.totalAll_pos) * 100).toFixed(1) : 0}%
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#b04332] font-semibold">
+                <td className="px-4 py-2.5 text-center font-mono text-[#8f2731] font-bold">
                   -{(ptnSum.totalAll_pos - ptnSum.totalAll_occ).toLocaleString()}
                 </td>
                 <td className="px-4 py-2.5 text-center">
-                  <span className="text-xs text-slate-600 font-medium hover:text-slate-900 hover:underline">เปิดตารางตัวคน →</span>
+                  <span className="text-xs text-[#1a3352] font-semibold hover:text-[#0f1d30] hover:underline">เปิดตารางตัวคน →</span>
                 </td>
               </tr>
               <tr
                 onClick={() => onNavigateToZone && onNavigateToZone('narathiwat')}
-                className="hover:bg-slate-50/80 cursor-pointer transition"
+                className="hover:bg-emerald-50/50 cursor-pointer transition"
               >
                 <td className="px-4 py-2.5 font-medium text-slate-900 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#354f3d]"></span>
-                  <span>ภ.จว.นราธิวาส (จว.นราธิวาส)</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#2f633f] shadow-xs"></span>
+                  <span className="font-semibold">ภ.จว.นราธิวาส (จว.นราธิวาส)</span>
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-slate-700">{nrtSum.totalAll_pos.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#2e4d39]">{nrtSum.totalAll_occ.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#9c4927] font-bold">
+                <td className="px-4 py-2.5 text-center font-mono text-slate-700 font-semibold">{nrtSum.totalAll_pos.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#1c3826]">{nrtSum.totalAll_occ.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono text-[#785427] font-bold">
                   {nrtSum.totalAll_pos > 0 ? ((nrtSum.totalAll_occ / nrtSum.totalAll_pos) * 100).toFixed(1) : 0}%
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#b04332] font-semibold">
+                <td className="px-4 py-2.5 text-center font-mono text-[#8f2731] font-bold">
                   -{(nrtSum.totalAll_pos - nrtSum.totalAll_occ).toLocaleString()}
                 </td>
                 <td className="px-4 py-2.5 text-center">
-                  <span className="text-xs text-slate-600 font-medium hover:text-slate-900 hover:underline">เปิดตารางตัวคน →</span>
+                  <span className="text-xs text-[#1a3352] font-semibold hover:text-[#0f1d30] hover:underline">เปิดตารางตัวคน →</span>
                 </td>
               </tr>
               <tr
                 onClick={() => onNavigateToZone && onNavigateToZone('songkhla_risk')}
-                className="hover:bg-slate-50/80 cursor-pointer transition"
+                className="hover:bg-rose-50/50 cursor-pointer transition"
               >
                 <td className="px-4 py-2.5 font-medium text-slate-900 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#10442a]"></span>
-                  <span>ภ.จว.สงขลา (เฉพาะ 4 อำเภอ 8 สภ. เสี่ยงภัย)</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#8f2731] shadow-xs"></span>
+                  <span className="font-semibold">ภ.จว.สงขลา (เฉพาะ 4 อำเภอ 8 สภ. เสี่ยงภัย)</span>
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-slate-700">{songkhlaRiskPos.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#2e4d39]">{songkhlaRiskOcc.toLocaleString()}</td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#9c4927] font-bold">
+                <td className="px-4 py-2.5 text-center font-mono text-slate-700 font-semibold">{songkhlaRiskPos.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono font-bold text-[#1c3826]">{songkhlaRiskOcc.toLocaleString()}</td>
+                <td className="px-4 py-2.5 text-center font-mono text-[#785427] font-bold">
                   {songkhlaRiskPos > 0 ? ((songkhlaRiskOcc / songkhlaRiskPos) * 100).toFixed(1) : 0}%
                 </td>
-                <td className="px-4 py-2.5 text-center font-mono text-[#b04332] font-semibold">
+                <td className="px-4 py-2.5 text-center font-mono text-[#8f2731] font-bold">
                   -{(songkhlaRiskPos - songkhlaRiskOcc).toLocaleString()}
                 </td>
                 <td className="px-4 py-2.5 text-center">
-                  <span className="text-xs text-slate-600 font-medium hover:text-slate-900 hover:underline">เปิดตารางตัวคน →</span>
+                  <span className="text-xs text-[#1a3352] font-semibold hover:text-[#0f1d30] hover:underline">เปิดตารางตัวคน →</span>
                 </td>
               </tr>
             </tbody>
             <tfoot>
               <tr className="text-white font-extrabold text-sm">
-                <td className="px-4 py-3 rounded-bl-lg bg-[#1e2329]">ยอดรวมทั้งสิ้น (4 สายงานยุทธการ)</td>
-                <td className="px-4 py-3 text-center font-mono bg-[#b5934a] text-white">
+                <td className="px-4 py-3.5 rounded-bl-xl bg-[#0a1422] text-[#d4af37]">ยอดรวมทั้งสิ้น (4 สายงานยุทธการ)</td>
+                <td className="px-4 py-3.5 text-center font-mono bg-[#13263d] text-[#e0edfb]">
                   {grandPos.toLocaleString()}
                 </td>
-                <td className="px-4 py-3 text-center font-mono bg-[#6b8979] text-white">
+                <td className="px-4 py-3.5 text-center font-mono bg-[#14281c] text-[#e1f3e7]">
                   {grandOcc.toLocaleString()}
                 </td>
-                <td className="px-4 py-3 text-center font-mono bg-[#b3603d] text-white">
+                <td className="px-4 py-3.5 text-center font-mono bg-[#453018] text-[#faebd7]">
                   {grandPos > 0 ? ((grandOcc / grandPos) * 100).toFixed(1) : 0}%
                 </td>
-                <td className="px-4 py-3 text-center font-mono bg-[#bc7563] text-white">
+                <td className="px-4 py-3.5 text-center font-mono bg-[#420d12] text-[#fce8ea]">
                   -{(grandPos - grandOcc).toLocaleString()}
                 </td>
-                <td className="px-4 py-3 text-center text-xs bg-[#454747] rounded-br-lg font-normal text-white">
+                <td className="px-4 py-3.5 text-center text-xs bg-[#0a1422] rounded-br-xl font-medium text-[#faebd7]">
                   4 ฟังก์ชันพื้นที่
                 </td>
               </tr>

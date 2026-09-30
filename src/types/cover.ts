@@ -70,7 +70,7 @@ export const COVER_THEMES: Record<CoverThemeId, CoverTheme> = {
   'amber-gold': {
     id: 'amber-gold',
     name: 'สีทองสุวรรณภูมิ (Sunrise Gold & Bronze)',
-    subtitle: 'แสงทองอร่าม เกียรติยศผู้พิทักษ์สันติราษฎร์',
+    subtitle: 'แสงทองอร่าม เกียรติยศแห่งศักดิ์ศรี',
     primaryColor: '#261b05',
     accentColor: '#fbbf24',
     bgGradient: 'from-stone-950 via-[#291b0c] to-[#451a03]',
@@ -110,7 +110,7 @@ export const DEFAULT_COVER_CONFIG: CoverConfig = {
   commanderName: 'พลตำรวจโท ผู้บัญชาการตำรวจภูธรภาค 9',
   fiscalYear: 'ประจำปีงบประมาณ พ.ศ. 2568 - 2569',
   dateText: 'ข้อมูลสถานภาพและอัตราครองคนปัจจุบัน (126 หน่วยงาน)',
-  mottoText: '“ผู้พิทักษ์สันติราษฎร์ พิทักษ์รับใช้ประชาชน เสียสละเพื่อความมั่นคงของแผ่นดินใต้”',
+  mottoText: '“พิทักษ์รับใช้ประชาชน เสียสละเพื่อความมั่นคงของแผ่นดินใต้”',
   themeId: 'royal-navy',
   imageUrl: '/images/police_region_9_banner.svg',
   imageOpacity: 0.55,

@@ -162,7 +162,7 @@ export const CoverSection: React.FC<CoverSectionProps> = ({
               {isFullMode && (
                 <div className="pt-3 space-y-2 border-t border-white/15 mt-3">
                   <p className="text-amber-300/95 italic font-medium text-xs sm:text-sm font-['Prompt']">
-                    {config.mottoText}
+                    {config.mottoText ? config.mottoText.replace(/ผู้พิทักษ์สันติราษฎร์\s*/g, '') : ''}
                   </p>
                   <div className="text-xs text-slate-300 font-mono flex flex-wrap items-center gap-3">
                     <span>{config.commanderName}</span>

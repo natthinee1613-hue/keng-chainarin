@@ -264,7 +264,7 @@ export const CoverEditModal: React.FC<CoverEditModalProps> = ({
                   rows={2}
                   value={formState.mottoText}
                   onChange={(e) => setFormState({ ...formState, mottoText: e.target.value })}
-                  placeholder="“ผู้พิทักษ์สันติราษฎร์ พิทักษ์รับใช้ประชาชน เสียสละเพื่อความมั่นคงของแผ่นดินใต้”"
+                  placeholder="“พิทักษ์รับใช้ประชาชน เสียสละเพื่อความมั่นคงของแผ่นดินใต้”"
                   className="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>

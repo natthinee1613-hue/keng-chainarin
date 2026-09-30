@@ -91,7 +91,7 @@ export const PRESET_THEMES: Record<Exclude<AppThemeId, 'custom'>, AppThemeConfig
   'amber-gold': {
     id: 'amber-gold',
     name: 'สีทองสุวรรณภูมิ (Sunrise Royal Gold)',
-    subtitle: 'สีทองอร่ามสง่างาม ดุจเกียรติยศและศักดิ์ศรีผู้พิทักษ์สันติราษฎร์',
+    subtitle: 'สีทองอร่ามสง่างาม ดุจเกียรติยศและศักดิ์ศรี',
     primaryColor: '#261b05',
     accentColor: '#fbbf24',
     secondaryColor: '#451a03',

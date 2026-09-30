@@ -6,7 +6,6 @@ import { INITIAL_POLICE_UNITS, calculateRecordTotals } from './data/initialData'
 import { Header } from './components/Header';
 import { CoverSection } from './components/CoverSection';
 import { OfficialTable } from './components/OfficialTable';
-import { OrganizationTree } from './components/OrganizationTree';
 import { AnalyticsView } from './components/AnalyticsView';
 import { ThreatZonesView } from './components/ThreatZonesView';
 import { UnitModal } from './components/UnitModal';
@@ -48,9 +47,11 @@ export default function App() {
       const saved = localStorage.getItem(COVER_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
+        const cleanMotto = parsed.mottoText ? parsed.mottoText.replace(/ผู้พิทักษ์สันติราษฎร์\s*/g, '') : DEFAULT_COVER_CONFIG.mottoText;
         return {
           ...DEFAULT_COVER_CONFIG,
           ...parsed,
+          mottoText: cleanMotto,
           showCover: true, // Permanent visibility
           imageUrl: parsed.imageUrl || DEFAULT_COVER_CONFIG.imageUrl,
         };
@@ -65,11 +66,15 @@ export default function App() {
   useEffect(() => {
     loadPersistentCover().then((cfg) => {
       setCoverConfig((prev) => {
+        const sanitizedCfg = {
+          ...cfg,
+          mottoText: cfg.mottoText ? cfg.mottoText.replace(/ผู้พิทักษ์สันติราษฎร์\s*/g, '') : DEFAULT_COVER_CONFIG.mottoText,
+        };
         // If current state already has user's custom photo, keep it
         if (prev.imageUrl && prev.imageUrl !== DEFAULT_COVER_CONFIG.imageUrl) {
-          return { ...prev, showCover: true };
+          return { ...prev, ...sanitizedCfg, imageUrl: prev.imageUrl, showCover: true };
         }
-        return { ...cfg, showCover: true };
+        return { ...sanitizedCfg, showCover: true };
       });
     });
   }, []);
@@ -103,7 +108,7 @@ export default function App() {
     }
   }, [appTheme]);
 
-  const [activeTab, setActiveTab] = useState<'table' | 'org' | 'analytics' | 'threats'>('org');
+  const [activeTab, setActiveTab] = useState<'table' | 'analytics' | 'threats'>('table');
   const [selectedZone, setSelectedZone] = useState<ZoneId>('all');
   const [tableSearchQuery, setTableSearchQuery] = useState('');
   const mainContentRef = useRef<HTMLDivElement | null>(null);
@@ -291,14 +296,6 @@ export default function App() {
             onDuplicate={handleDuplicateUnit}
             onViewRoster={(record) => setRosterUnit(record)}
             theme={appTheme}
-          />
-        )}
-
-        {activeTab === 'org' && (
-          <OrganizationTree
-            records={records}
-            onNavigateToZone={handleNavigateToZone}
-            onSelectUnitRoster={(unit) => setRosterUnit(unit)}
           />
         )}
 
