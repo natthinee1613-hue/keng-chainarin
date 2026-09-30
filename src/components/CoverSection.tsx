@@ -182,7 +182,7 @@ export const CoverSection: React.FC<CoverSectionProps> = ({
                 onClick={onEnterTable}
                 className="bg-white hover:bg-slate-100 text-slate-900 font-bold px-6 py-3.5 rounded-xl shadow-xl transition-all duration-200 flex items-center gap-2.5 text-sm active:scale-95 group font-['Prompt'] border border-slate-200"
               >
-                <span>เข้าสู่ตารางข้อมูลสถานภาพกำลังพล</span>
+                <span>เข้าสู่แผนผังโครงสร้างและตารางข้อมูล</span>
                 <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
               </button>
             </div>

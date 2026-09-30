@@ -269,7 +269,7 @@ export default function App() {
         onUpdateConfig={setCoverConfig}
         onEnterTable={() => {
           mainContentRef.current?.scrollIntoView({ behavior: 'smooth' });
-          setActiveTab('table');
+          setActiveTab('org');
         }}
       />
 

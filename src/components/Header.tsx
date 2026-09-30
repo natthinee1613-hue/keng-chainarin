@@ -5,8 +5,8 @@ import { AppThemeConfig } from '../types/theme';
 
 interface HeaderProps {
   records: PoliceUnitRecord[];
-  activeTab: 'table' | 'analytics' | 'threats';
-  setActiveTab: (tab: 'table' | 'analytics' | 'threats') => void;
+  activeTab: 'org' | 'table' | 'analytics' | 'threats';
+  setActiveTab: (tab: 'org' | 'table' | 'analytics' | 'threats') => void;
   onOpenAddModal?: () => void;
   onOpenImportModal?: () => void;
   onExportExcel?: () => void;
@@ -94,6 +94,24 @@ export const Header: React.FC<HeaderProps> = ({
             aria-label="แถบเมนูหลัก"
             className="flex items-center justify-center flex-wrap gap-1 sm:gap-2 bg-slate-900/95 p-1.5 rounded-xl border border-slate-800 shadow-lg"
           >
+            <button
+              onClick={() => setActiveTab('org')}
+              style={
+                activeTab === 'org'
+                  ? {
+                      backgroundColor: theme.accentColor === '#f59e0b' ? '#ffffff' : theme.accentColor,
+                      color: '#0f172a',
+                    }
+                  : undefined
+              }
+              className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                activeTab === 'org'
+                  ? 'shadow-md font-bold'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              🌳 แผนผังโครงสร้างกำลังพล
+            </button>
             <button
               onClick={() => setActiveTab('table')}
               style={
