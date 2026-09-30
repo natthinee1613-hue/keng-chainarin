@@ -70,7 +70,7 @@ export const COVER_THEMES: Record<CoverThemeId, CoverTheme> = {
   'amber-gold': {
     id: 'amber-gold',
     name: 'สีทองสุวรรณภูมิ (Sunrise Gold & Bronze)',
-    subtitle: 'แสงทองอร่าม เกียรติยศแห่งศักดิ์ศรี',
+    subtitle: 'แสงทองอร่าม เกียรติยศและศักดิ์ศรี',
     primaryColor: '#261b05',
     accentColor: '#fbbf24',
     bgGradient: 'from-stone-950 via-[#291b0c] to-[#451a03]',

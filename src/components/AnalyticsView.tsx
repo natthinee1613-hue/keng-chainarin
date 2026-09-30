@@ -150,7 +150,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
       occ: groupStats.find((g) => g.group === 'ภ.จว.ยะลา')?.summary.totalAll_occ || 0,
       spCount: records.filter((r) => r.group === 'ภ.จว.ยะลา' && r.name.startsWith('สภ.')).length,
       redCount: 9,
-      tacticalFocus: 'รักษาความสงบเรียบร้อยบนพื้นที่เขาสูง คุ้มครองเส้นทางเศรษฐกิจและชุมชนพี่น้องประชาชน',
+      tacticalFocus: 'พิทักษ์สันติราษฎร์บนพื้นที่เขาสูง คุ้มครองเส้นทางเศรษฐกิจและชุมชนพี่น้องประชาชน',
     },
     {
       id: 'pattani',
@@ -650,7 +650,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
           </div>
 
           <div className="text-xs text-slate-600 bg-slate-50 p-3.5 rounded-xl border border-slate-200 leading-relaxed font-sans">
-            💡 <strong>บทบาทและภารกิจ:</strong> ชั้นสัญญาบัตรทำหน้าที่ผู้นำยุทธวิธี วางแผนงานการข่าว และอำนวยการงานสอบสวนคดีความมั่นคง | ชั้นประทวนทำหน้าที่ชุดสายตรวจ ลาดตระเวนภาคสนาม และประสานความสัมพันธ์กับประชาชนในพื้นที่
+            💡 <strong>ภารกิจการปฏิบัติงาน:</strong> ชั้นสัญญาบัตรทำหน้าที่ผู้นำยุทธวิธี วางแผนงานการข่าว และอำนวยการงานสอบสวนคดีความมั่นคง | ชั้นประทวนทำหน้าที่ชุดสายตรวจ ลาดตระเวนภาคสนาม และประสานความสัมพันธ์กับประชาชนในพื้นที่
           </div>
         </div>
 

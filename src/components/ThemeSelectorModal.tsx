@@ -19,6 +19,8 @@ import {
   COLOR_SWATCH_PRESETS,
   DEFAULT_APP_THEME,
   BackgroundMode,
+  CHART_THEME_OPTIONS,
+  ChartThemeId,
 } from '../types/theme';
 
 interface ThemeSelectorModalProps {
@@ -34,7 +36,7 @@ export const ThemeSelectorModal: React.FC<ThemeSelectorModalProps> = ({
   onClose,
   onSelectTheme,
 }) => {
-  const [activeTab, setActiveTab] = useState<'presets' | 'custom'>('presets');
+  const [activeTab, setActiveTab] = useState<'presets' | 'custom' | 'chart'>('presets');
   const [tempTheme, setTempTheme] = useState<AppThemeConfig>({ ...currentTheme });
 
   if (!isOpen) return null;
@@ -45,6 +47,17 @@ export const ThemeSelectorModal: React.FC<ThemeSelectorModalProps> = ({
     const updated = {
       ...selected,
       bgMode: tempTheme.bgMode, // keep user's light/dark preference
+      chartThemeId: selected.chartThemeId || tempTheme.chartThemeId,
+    };
+    setTempTheme(updated);
+    onSelectTheme(updated);
+  };
+
+  // Select chart theme
+  const handleSelectChartTheme = (chartThemeId: ChartThemeId) => {
+    const updated = {
+      ...tempTheme,
+      chartThemeId,
     };
     setTempTheme(updated);
     onSelectTheme(updated);
@@ -152,6 +165,18 @@ export const ThemeSelectorModal: React.FC<ThemeSelectorModalProps> = ({
             <Sliders className="w-4 h-4" />
             <span>2. เลือกสีและโหมดเอง (Custom Colors)</span>
           </button>
+
+          <button
+            onClick={() => setActiveTab('chart')}
+            className={`py-3 px-4 font-medium border-b-2 flex items-center gap-2 transition ${
+              activeTab === 'chart'
+                ? 'border-amber-500 text-amber-700 font-bold bg-white'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <span>🎨</span>
+            <span>3. ธีมสีแผนภูมิภาพโครงสร้าง (6 ธีม)</span>
+          </button>
         </div>
 
         {/* Modal Content */}
@@ -218,6 +243,97 @@ export const ThemeSelectorModal: React.FC<ThemeSelectorModalProps> = ({
                           }}
                         >
                           ตารางสถานภาพ
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Quick Chart Theme Swatch Strip inside Tab 1 */}
+              <div className="pt-4 border-t border-slate-200 mt-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-800 flex items-center gap-1.5 text-xs">
+                    <span>🎨</span>
+                    <span>ธีมสีแผนภูมิภาพโครงสร้าง (Organization Chart Theme):</span>
+                  </span>
+                  <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                    {CHART_THEME_OPTIONS.find((o) => o.id === (tempTheme.chartThemeId || 'army'))?.name}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {CHART_THEME_OPTIONS.map((opt) => {
+                    const isSelected = (tempTheme.chartThemeId || 'army') === opt.id;
+                    return (
+                      <div
+                        key={opt.id}
+                        onClick={() => handleSelectChartTheme(opt.id)}
+                        className={`p-2.5 rounded-xl border-2 cursor-pointer transition-all flex items-center justify-between gap-2 ${
+                          isSelected
+                            ? 'border-amber-500 bg-amber-50/70 shadow-xs ring-1 ring-amber-500/20'
+                            : 'border-slate-200 bg-white hover:border-slate-300'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 truncate">
+                          <span className="text-base">{opt.icon}</span>
+                          <span className="text-xs font-semibold text-slate-800 truncate">{opt.name}</span>
+                        </div>
+                        {isSelected && <span className="text-xs font-bold text-amber-600">✓</span>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: CHART THEMES */}
+          {activeTab === 'chart' && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span>เลือกธีมสีเฉพาะสำหรับแผนภูมิภาพโครงสร้างองค์กร (Organization Hierarchy Chart):</span>
+                <span className="font-semibold text-slate-700">คลิกเพื่อเปลี่ยนทันที</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {CHART_THEME_OPTIONS.map((opt) => {
+                  const isSelected = (tempTheme.chartThemeId || 'army') === opt.id;
+
+                  return (
+                    <div
+                      key={opt.id}
+                      onClick={() => handleSelectChartTheme(opt.id)}
+                      className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between space-y-3 relative group ${
+                        isSelected
+                          ? 'border-amber-500 bg-amber-50/50 ring-2 ring-amber-500/25 shadow-md'
+                          : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-xs'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-2xl p-1 rounded-lg bg-slate-100">{opt.icon}</span>
+                          <div>
+                            <h4 className="font-bold text-slate-900 font-['Prompt'] text-sm group-hover:text-amber-700 transition">
+                              {opt.name}
+                            </h4>
+                            <p className="text-[11px] text-slate-500 line-clamp-1">{opt.subtitle}</p>
+                          </div>
+                        </div>
+
+                        {isSelected && (
+                          <div className="w-5 h-5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-xs">
+                            ✓
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Swatch gradient preview */}
+                      <div
+                        className={`h-7 rounded-lg bg-gradient-to-r ${opt.swatchGradient} p-1.5 flex items-center justify-between px-3 text-[10px] text-white shadow-inner font-mono`}
+                      >
+                        <span className="font-semibold text-white/90">ผังโครงสร้าง ภ.9</span>
+                        <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-white/20 text-white backdrop-blur-xs">
+                          4 สายงานพื้นที่
                         </span>
                       </div>
                     </div>
@@ -338,6 +454,97 @@ export const ThemeSelectorModal: React.FC<ThemeSelectorModalProps> = ({
                     {tempTheme.accentColor.toUpperCase()}
                   </span>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: CHART THEMES (ฟังชั่นเปลี่ยนสีแผนภูมิภาพ รวมกับธีมสี) */}
+          {activeTab === 'chart' && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span>เลือกชุดสีสำหรับแผนภูมิภาพโครงสร้างองค์กร (Organization Hierarchy Chart) ทั้ง 6 รูปแบบ:</span>
+                <span className="font-semibold text-amber-700">มีผลกับผังโครงสร้างและตารางสรุปกำลังพล</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {CHART_THEME_OPTIONS.map((opt) => {
+                  const isSelected = (tempTheme.chartThemeId || 'army') === opt.id;
+
+                  return (
+                    <div
+                      key={opt.id}
+                      onClick={() => handleSelectChartTheme(opt.id)}
+                      className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between space-y-3 relative group ${
+                        isSelected
+                          ? 'border-amber-500 bg-amber-50/40 ring-2 ring-amber-500/25 shadow-md'
+                          : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-xs'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-2xl">{opt.icon}</span>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-bold text-slate-900 font-['Prompt'] text-sm group-hover:text-amber-700 transition">
+                                {opt.name}
+                              </h4>
+                              {opt.id === 'army' && (
+                                <span className="px-1.5 py-0.5 text-[9px] font-bold rounded bg-green-100 text-green-800 border border-green-300">
+                                  แนวทาง ทบ.
+                                </span>
+                              )}
+                              {opt.id === 'pastel' && (
+                                <span className="px-1.5 py-0.5 text-[9px] font-bold rounded bg-rose-100 text-rose-800 border border-rose-300">
+                                  สบายตา
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-[11px] text-slate-500">{opt.subtitle}</p>
+                          </div>
+                        </div>
+
+                        {isSelected && (
+                          <div className="w-5 h-5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-xs">
+                            ✓
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Mini Mockup of Chart Node */}
+                      <div
+                        className={`h-11 rounded-xl p-2 flex items-center justify-between px-3 text-[10px] shadow-sm font-mono ${opt.badgeBg} border ${opt.borderColor}`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse inline-block" />
+                          <div className="flex flex-col">
+                            <span className={`font-bold text-[11px] ${opt.badgeText}`}>
+                              ตำรวจภูธรภาค 9
+                            </span>
+                            <span className="text-[9px] opacity-75">
+                              (3 จว.ชายแดนใต้ & 4 อ.สงขลา)
+                            </span>
+                          </div>
+                        </div>
+                        <span
+                          className={`px-2 py-0.5 rounded text-[9px] font-bold ${
+                            opt.id === 'pastel'
+                              ? 'bg-rose-100 text-rose-800 border border-rose-200'
+                              : 'bg-black/30 text-amber-300 border border-amber-400/40'
+                          }`}
+                        >
+                          {isSelected ? 'กำลังใช้งาน' : 'เลือกใช้'}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 flex items-center gap-2">
+                <span className="text-base">💡</span>
+                <span>
+                  ท่านสามารถสลับธีมสีของแผนภูมิภาพได้ 3 ช่องทาง: <strong>1) แถบด่วนด้านบนของผังโครงสร้าง</strong>, <strong>2) หน้าต่างตั้งค่าธีมนี้</strong>, และ <strong>3) ปุ่มวงกลมมุมขวาล่าง</strong>
+                </span>
               </div>
             </div>
           )}

@@ -10,6 +10,82 @@ export type AppThemeId =
 
 export type BackgroundMode = 'light' | 'dark' | 'navy';
 
+export type ChartThemeId = 'army' | 'pastel' | 'royal-navy' | 'crimson' | 'emerald' | 'cyber';
+
+export interface ChartThemeOption {
+  id: ChartThemeId;
+  name: string;
+  icon: string;
+  subtitle: string;
+  badgeBg: string;
+  badgeText: string;
+  borderColor: string;
+  swatchGradient: string;
+}
+
+export const CHART_THEME_OPTIONS: ChartThemeOption[] = [
+  {
+    id: 'army',
+    name: 'ราชการทหารบก',
+    icon: '🎖️',
+    subtitle: 'เขียวขี้ม้าทหารบก กากีแกมเขียว ทองเหลืองกงจักร แดงเบเร่ต์',
+    badgeBg: 'bg-[#18291b]',
+    badgeText: 'text-[#fef08a]',
+    borderColor: 'border-[#ca8a04]',
+    swatchGradient: 'from-[#132316] via-[#1c3821] to-[#ca8a04]',
+  },
+  {
+    id: 'pastel',
+    name: 'สีพาสเทล สบายตา',
+    icon: '🌸',
+    subtitle: 'โทนสีพาสเทลนุ่มนวล สบายตา เรียบหรู อ่อนโยน ทันสมัย',
+    badgeBg: 'bg-white',
+    badgeText: 'text-slate-800',
+    borderColor: 'border-slate-300',
+    swatchGradient: 'from-[#fef3c7] via-[#bae6fd] to-[#fecdd3]',
+  },
+  {
+    id: 'royal-navy',
+    name: 'กรมท่าตำรวจหลวง',
+    icon: '🏛️',
+    subtitle: 'สีกรมท่าทางการประจำตำรวจไทย ตัดเส้นขอบทองอร่าม',
+    badgeBg: 'bg-slate-900',
+    badgeText: 'text-amber-300',
+    borderColor: 'border-amber-400',
+    swatchGradient: 'from-[#0b1728] via-[#1e3a5f] to-[#f59e0b]',
+  },
+  {
+    id: 'crimson',
+    name: 'แดงเลือดหมูความมั่นคง',
+    icon: '🔴',
+    subtitle: 'แดงเลือดหมูดุดัน สัญลักษณ์ความพร้อมรบพื้นที่เสี่ยงภัย',
+    badgeBg: 'bg-red-950',
+    badgeText: 'text-rose-200',
+    borderColor: 'border-red-500',
+    swatchGradient: 'from-[#3a0606] via-[#7f1d1d] to-[#ef4444]',
+  },
+  {
+    id: 'emerald',
+    name: 'เขียวพงไพร ตชด./นปพ.',
+    icon: '🌲',
+    subtitle: 'เขียวมรกตเข้ม ตชด. นปพ. และชุดปฏิบัติการจรยุทธ์',
+    badgeBg: 'bg-emerald-950',
+    badgeText: 'text-emerald-200',
+    borderColor: 'border-emerald-500',
+    swatchGradient: 'from-[#032e22] via-[#065f46] to-[#10b981]',
+  },
+  {
+    id: 'cyber',
+    name: 'ไนท์ออปส์ ไซเบอร์',
+    icon: '💻',
+    subtitle: 'ดำออบซิเดียนตัดฟ้าไฮเทค ศูนย์สั่งการ CCOC',
+    badgeBg: 'bg-slate-950',
+    badgeText: 'text-sky-300',
+    borderColor: 'border-sky-400',
+    swatchGradient: 'from-[#030712] via-[#0f2442] to-[#38bdf8]',
+  },
+];
+
 export interface AppThemeConfig {
   id: AppThemeId;
   name: string;
@@ -24,6 +100,7 @@ export interface AppThemeConfig {
   tableHeaderAccent: string;
   badgeClass: string;
   swatchGradient: string;
+  chartThemeId?: ChartThemeId;
   isCustom?: boolean;
 }
 
@@ -42,6 +119,7 @@ export const PRESET_THEMES: Record<Exclude<AppThemeId, 'custom'>, AppThemeConfig
     tableHeaderAccent: 'bg-white text-slate-950 border-slate-300',
     badgeClass: 'bg-white text-slate-800 border-slate-300',
     swatchGradient: 'from-slate-900 via-blue-950 to-amber-500',
+    chartThemeId: 'royal-navy',
   },
   'crimson-risk': {
     id: 'crimson-risk',
@@ -57,6 +135,7 @@ export const PRESET_THEMES: Record<Exclude<AppThemeId, 'custom'>, AppThemeConfig
     tableHeaderAccent: 'bg-red-100 text-red-950 border-red-300',
     badgeClass: 'bg-red-100 text-red-900 border-red-300',
     swatchGradient: 'from-slate-950 via-red-950 to-red-600',
+    chartThemeId: 'crimson',
   },
   'tactical-emerald': {
     id: 'tactical-emerald',
@@ -72,6 +151,7 @@ export const PRESET_THEMES: Record<Exclude<AppThemeId, 'custom'>, AppThemeConfig
     tableHeaderAccent: 'bg-emerald-100 text-emerald-950 border-emerald-300',
     badgeClass: 'bg-emerald-100 text-emerald-900 border-emerald-300',
     swatchGradient: 'from-slate-950 via-emerald-950 to-emerald-500',
+    chartThemeId: 'emerald',
   },
   'cyber-night': {
     id: 'cyber-night',
@@ -87,6 +167,7 @@ export const PRESET_THEMES: Record<Exclude<AppThemeId, 'custom'>, AppThemeConfig
     tableHeaderAccent: 'bg-sky-100 text-sky-950 border-sky-300',
     badgeClass: 'bg-sky-100 text-sky-900 border-sky-300',
     swatchGradient: 'from-slate-950 via-slate-900 to-sky-400',
+    chartThemeId: 'cyber',
   },
   'amber-gold': {
     id: 'amber-gold',
@@ -102,6 +183,7 @@ export const PRESET_THEMES: Record<Exclude<AppThemeId, 'custom'>, AppThemeConfig
     tableHeaderAccent: 'bg-amber-100 text-amber-950 border-amber-300',
     badgeClass: 'bg-amber-100 text-amber-900 border-amber-300',
     swatchGradient: 'from-stone-950 via-stone-900 to-amber-400',
+    chartThemeId: 'army',
   },
   'royal-purple': {
     id: 'royal-purple',
@@ -117,6 +199,7 @@ export const PRESET_THEMES: Record<Exclude<AppThemeId, 'custom'>, AppThemeConfig
     tableHeaderAccent: 'bg-purple-100 text-purple-950 border-purple-300',
     badgeClass: 'bg-purple-100 text-purple-900 border-purple-300',
     swatchGradient: 'from-slate-950 via-purple-950 to-purple-400',
+    chartThemeId: 'royal-navy',
   },
   'stealth-gray': {
     id: 'stealth-gray',
@@ -132,6 +215,7 @@ export const PRESET_THEMES: Record<Exclude<AppThemeId, 'custom'>, AppThemeConfig
     tableHeaderAccent: 'bg-slate-200 text-slate-900 border-slate-300',
     badgeClass: 'bg-slate-200 text-slate-800 border-slate-300',
     swatchGradient: 'from-black via-zinc-800 to-slate-400',
+    chartThemeId: 'army',
   },
 };
 

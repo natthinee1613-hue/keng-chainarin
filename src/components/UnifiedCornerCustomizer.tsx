@@ -19,7 +19,7 @@ import {
   Moon,
 } from 'lucide-react';
 import { CoverConfig, COVER_THEMES, CoverThemeId } from '../types/cover';
-import { AppThemeConfig, AppThemeId, PRESET_THEMES, COLOR_SWATCH_PRESETS, BackgroundMode } from '../types/theme';
+import { AppThemeConfig, AppThemeId, PRESET_THEMES, COLOR_SWATCH_PRESETS, BackgroundMode, CHART_THEME_OPTIONS, ChartThemeId } from '../types/theme';
 
 interface UnifiedCornerCustomizerProps {
   coverConfig: CoverConfig;
@@ -368,6 +368,49 @@ export const UnifiedCornerCustomizer: React.FC<UnifiedCornerCustomizerProps> = (
                         title={swatch.name}
                       />
                     ))}
+                  </div>
+                </div>
+
+                {/* 🎨 ธีมสีแผนภูมิภาพโครงสร้าง (Organization Chart Theme) */}
+                <div className="pt-2.5 border-t border-slate-800 space-y-1.5">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="font-semibold text-amber-300 flex items-center gap-1">
+                      <span>🎨</span>
+                      <span>ธีมสีแผนภูมิภาพโครงสร้าง:</span>
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-mono">
+                      {CHART_THEME_OPTIONS.find((o) => o.id === (appTheme.chartThemeId || 'army'))?.name}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {CHART_THEME_OPTIONS.map((opt) => {
+                      const isSelected = (appTheme.chartThemeId || 'army') === opt.id;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => {
+                            onUpdateAppTheme({
+                              ...appTheme,
+                              chartThemeId: opt.id,
+                            });
+                          }}
+                          className={`px-2 py-1.5 rounded-lg border text-left transition flex items-center justify-between gap-1.5 ${
+                            isSelected
+                              ? 'bg-amber-500/20 text-amber-300 font-bold border-amber-500/60 ring-1 ring-amber-500/30'
+                              : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:bg-slate-800'
+                          }`}
+                          title={opt.subtitle}
+                        >
+                          <div className="flex items-center gap-1.5 truncate">
+                            <span className="text-xs">{opt.icon}</span>
+                            <span className="truncate text-[11px]">{opt.name}</span>
+                          </div>
+                          {isSelected && <span className="text-[10px] text-amber-400 font-bold">✓</span>}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 

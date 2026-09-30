@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { PoliceUnitRecord, ZoneId, OfficerRosterItem } from './types';
 import { CoverConfig, DEFAULT_COVER_CONFIG, COVER_THEMES, CoverThemeId } from './types/cover';
-import { AppThemeConfig, DEFAULT_APP_THEME } from './types/theme';
+import { AppThemeConfig, DEFAULT_APP_THEME, ChartThemeId, CHART_THEME_OPTIONS } from './types/theme';
 import { INITIAL_POLICE_UNITS, calculateRecordTotals } from './data/initialData';
 import { Header } from './components/Header';
 import { CoverSection } from './components/CoverSection';
 import { OfficialTable } from './components/OfficialTable';
+import { OrganizationTree } from './components/OrganizationTree';
 import { AnalyticsView } from './components/AnalyticsView';
 import { ThreatZonesView } from './components/ThreatZonesView';
 import { UnitModal } from './components/UnitModal';
@@ -47,11 +48,12 @@ export default function App() {
       const saved = localStorage.getItem(COVER_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        const cleanMotto = parsed.mottoText ? parsed.mottoText.replace(/ผู้พิทักษ์สันติราษฎร์\s*/g, '') : DEFAULT_COVER_CONFIG.mottoText;
+        if (parsed.mottoText && parsed.mottoText.includes('ผู้พิทักษ์สันติราษฎร์')) {
+          parsed.mottoText = parsed.mottoText.replace(/ผู้พิทักษ์สันติราษฎร์\s*/g, '');
+        }
         return {
           ...DEFAULT_COVER_CONFIG,
           ...parsed,
-          mottoText: cleanMotto,
           showCover: true, // Permanent visibility
           imageUrl: parsed.imageUrl || DEFAULT_COVER_CONFIG.imageUrl,
         };
@@ -66,15 +68,15 @@ export default function App() {
   useEffect(() => {
     loadPersistentCover().then((cfg) => {
       setCoverConfig((prev) => {
-        const sanitizedCfg = {
-          ...cfg,
-          mottoText: cfg.mottoText ? cfg.mottoText.replace(/ผู้พิทักษ์สันติราษฎร์\s*/g, '') : DEFAULT_COVER_CONFIG.mottoText,
-        };
+        let cleanCfg = { ...cfg };
+        if (cleanCfg.mottoText && cleanCfg.mottoText.includes('ผู้พิทักษ์สันติราษฎร์')) {
+          cleanCfg.mottoText = cleanCfg.mottoText.replace(/ผู้พิทักษ์สันติราษฎร์\s*/g, '');
+        }
         // If current state already has user's custom photo, keep it
         if (prev.imageUrl && prev.imageUrl !== DEFAULT_COVER_CONFIG.imageUrl) {
-          return { ...prev, ...sanitizedCfg, imageUrl: prev.imageUrl, showCover: true };
+          return { ...prev, showCover: true };
         }
-        return { ...sanitizedCfg, showCover: true };
+        return { ...cleanCfg, showCover: true };
       });
     });
   }, []);
@@ -108,7 +110,7 @@ export default function App() {
     }
   }, [appTheme]);
 
-  const [activeTab, setActiveTab] = useState<'table' | 'analytics' | 'threats'>('table');
+  const [activeTab, setActiveTab] = useState<'table' | 'org' | 'analytics' | 'threats'>('org');
   const [selectedZone, setSelectedZone] = useState<ZoneId>('all');
   const [tableSearchQuery, setTableSearchQuery] = useState('');
   const mainContentRef = useRef<HTMLDivElement | null>(null);
@@ -139,6 +141,16 @@ export default function App() {
       }));
     }
     showToast(`เปลี่ยนธีมสีเป็น "${newTheme.name}" สำเร็จ`, 'info');
+  };
+
+  // Change chart theme handler
+  const handleSelectChartTheme = (newChartTheme: ChartThemeId) => {
+    setAppTheme((prev) => ({
+      ...prev,
+      chartThemeId: newChartTheme,
+    }));
+    const opt = CHART_THEME_OPTIONS.find((o) => o.id === newChartTheme);
+    showToast(`เปลี่ยนธีมแผนภูมิภาพเป็น "${opt?.name || newChartTheme}" สำเร็จ`, 'info');
   };
 
   // Sync to localStorage
@@ -296,6 +308,16 @@ export default function App() {
             onDuplicate={handleDuplicateUnit}
             onViewRoster={(record) => setRosterUnit(record)}
             theme={appTheme}
+          />
+        )}
+
+        {activeTab === 'org' && (
+          <OrganizationTree
+            records={records}
+            onNavigateToZone={handleNavigateToZone}
+            onSelectUnitRoster={(unit) => setRosterUnit(unit)}
+            chartTheme={appTheme.chartThemeId || 'army'}
+            onSelectChartTheme={handleSelectChartTheme}
           />
         )}
 
