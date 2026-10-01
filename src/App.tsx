@@ -364,6 +364,7 @@ export default function App() {
         unit={rosterUnit}
         onClose={() => setRosterUnit(null)}
         onSaveRoster={handleSaveRoster}
+        theme={appTheme}
       />
 
       <DeleteConfirmModal
