@@ -736,6 +736,19 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
   const pattaniBreakdown = getPattaniBreakdown();
   const narathiwatBreakdown = getNarathiwatBreakdown();
 
+  // Helper for Songkhla districts (4 อำเภอ 8 สภ.)
+  const getSongkhlaDistrictStats = (subUnits: string[]) => {
+    const list = records.filter(r => r.group === 'ภ.จว.สงขลา' && subUnits.some(s => r.name.includes(s)));
+    const pos = list.reduce((acc, r) => acc + r.totalAll_pos, 0);
+    const occ = list.reduce((acc, r) => acc + r.totalAll_occ, 0);
+    return { list, pos, occ };
+  };
+
+  const nathaweeStats = getSongkhlaDistrictStats(['สภ.นาทวี', 'สภ.สะท้อน']);
+  const thepaStats = getSongkhlaDistrictStats(['สภ.เทพา', 'สภ.ห้วยปลิง']);
+  const sabaStats = getSongkhlaDistrictStats(['สภ.สะบ้าย้อย', 'สภ.บ้านโหนด']);
+  const chanaStats = getSongkhlaDistrictStats(['สภ.จะนะ', 'สภ.ควนมีด']);
+
   const handleUnitClick = (unit: PoliceUnitRecord) => {
     if (onSelectUnitRoster) {
       onSelectUnitRoster(unit);
@@ -846,40 +859,40 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
               </div>
 
               {/* Breakdown: หน่วยอำนวยการ vs สภ. */}
-              <div className="grid grid-cols-2 gap-2 w-full">
-                <div className={`${currentStyle.adminBox.bg} p-3 rounded-2xl shadow-lg text-xs border ${currentStyle.adminBox.border}`}>
-                  <div className={`font-bold border-b border-white/10 pb-1 mb-1.5 text-center ${currentStyle.adminBox.titleColor}`}>
-                    หน่วยอำนวยการ<br />และสนับสนุน
-                    <div className={`text-[10px] font-mono px-2 py-0.5 rounded-full inline-block mt-1 border ${currentStyle.adminBox.badge}`}>[{yalaBreakdown.adminPos}/{yalaBreakdown.adminOcc}]</div>
+              <div className="grid grid-cols-2 gap-2.5 w-full items-stretch">
+                <div className={`${currentStyle.adminBox.bg} p-3.5 rounded-2xl shadow-xl text-xs border ${currentStyle.adminBox.border} flex flex-col min-h-[640px]`}>
+                  <div className={`font-bold border-b border-white/10 pb-2 mb-2 text-center ${currentStyle.adminBox.titleColor}`}>
+                    <div>หน่วยอำนวยการ</div>
+                    <div className="text-[11px] font-normal opacity-90">และสนับสนุน ({yalaBreakdown.admin.length} หน่วย)</div>
                   </div>
-                  <ul className={`space-y-1 text-[11px] ${currentStyle.adminBox.itemText}`}>
-                    {yalaBreakdown.admin.slice(0, 5).map((u) => (
+                  <ul className={`space-y-1.5 text-[11px] ${currentStyle.adminBox.itemText} flex-1 overflow-y-auto min-h-[520px] max-h-[740px] chart-scrollbar pr-1`}>
+                    {yalaBreakdown.admin.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className={`truncate cursor-pointer ${currentStyle.adminBox.hoverText} hover:translate-x-0.5 transition-all`}
+                        className={`truncate cursor-pointer ${currentStyle.adminBox.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
                         title="คลิกดูตัวคนในหน่วยนี้"
                       >
-                        • {u.name}
+                        <span>• {u.name}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className={`${currentStyle.spBoxYala.bg} p-3 rounded-2xl shadow-lg text-xs border ${currentStyle.spBoxYala.border}`}>
-                  <div className={`font-bold border-b border-white/10 pb-1 mb-1.5 text-center ${currentStyle.spBoxYala.titleColor}`}>
-                    สภ. ({yalaBreakdown.sp.length} แห่ง)
-                    <div className={`text-[10px] font-mono px-2 py-0.5 rounded-full inline-block mt-1 border ${currentStyle.spBoxYala.badge}`}>[{yalaBreakdown.spPos}/{yalaBreakdown.spOcc}]</div>
+                <div className={`${currentStyle.spBoxYala.bg} p-3.5 rounded-2xl shadow-xl text-xs border ${currentStyle.spBoxYala.border} flex flex-col min-h-[640px]`}>
+                  <div className={`font-bold border-b border-white/10 pb-2 mb-2 text-center ${currentStyle.spBoxYala.titleColor}`}>
+                    <div>สภ. ในสังกัด</div>
+                    <div className="text-[11px] font-normal opacity-90">({yalaBreakdown.sp.length} สถานี)</div>
                   </div>
-                  <ul className={`space-y-1 text-[11px] ${currentStyle.spBoxYala.itemText} max-h-48 overflow-y-auto`}>
+                  <ul className={`space-y-1.5 text-[11px] ${currentStyle.spBoxYala.itemText} flex-1 overflow-y-auto min-h-[520px] max-h-[740px] chart-scrollbar pr-1`}>
                     {yalaBreakdown.sp.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className={`truncate cursor-pointer ${currentStyle.spBoxYala.hoverText} hover:translate-x-0.5 transition-all`}
+                        className={`truncate cursor-pointer ${currentStyle.spBoxYala.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
                         title="คลิกดูตัวคนใน สภ. นี้"
                       >
-                        • {u.name}
+                        <span>• {u.name}</span>
                       </li>
                     ))}
                   </ul>
@@ -909,40 +922,40 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                 <div className="text-[11px] font-mono mt-0.5 opacity-90">[{ptnSum.totalAll_pos}/{ptnSum.totalAll_occ}]</div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 w-full">
-                <div className={`${currentStyle.adminBox.bg} p-3 rounded-2xl shadow-lg text-xs border ${currentStyle.adminBox.border}`}>
-                  <div className={`font-bold border-b border-white/10 pb-1 mb-1.5 text-center ${currentStyle.adminBox.titleColor}`}>
-                    หน่วยอำนวยการ<br />และสนับสนุน
-                    <div className={`text-[10px] font-mono px-2 py-0.5 rounded-full inline-block mt-1 border ${currentStyle.adminBox.badge}`}>[{pattaniBreakdown.adminPos}/{pattaniBreakdown.adminOcc}]</div>
+              <div className="grid grid-cols-2 gap-2.5 w-full items-stretch">
+                <div className={`${currentStyle.adminBox.bg} p-3.5 rounded-2xl shadow-xl text-xs border ${currentStyle.adminBox.border} flex flex-col min-h-[640px]`}>
+                  <div className={`font-bold border-b border-white/10 pb-2 mb-2 text-center ${currentStyle.adminBox.titleColor}`}>
+                    <div>หน่วยอำนวยการ</div>
+                    <div className="text-[11px] font-normal opacity-90">และสนับสนุน ({pattaniBreakdown.admin.length} หน่วย)</div>
                   </div>
-                  <ul className={`space-y-1 text-[11px] ${currentStyle.adminBox.itemText}`}>
+                  <ul className={`space-y-1.5 text-[11px] ${currentStyle.adminBox.itemText} flex-1 overflow-y-auto min-h-[520px] max-h-[740px] chart-scrollbar pr-1`}>
                     {pattaniBreakdown.admin.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className={`truncate cursor-pointer ${currentStyle.adminBox.hoverText} hover:translate-x-0.5 transition-all`}
+                        className={`truncate cursor-pointer ${currentStyle.adminBox.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
                         title="คลิกดูตัวคนในหน่วยนี้"
                       >
-                        • {u.name}
+                        <span>• {u.name}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className={`${currentStyle.spBoxPtn.bg} p-3 rounded-2xl shadow-lg text-xs border ${currentStyle.spBoxPtn.border}`}>
-                  <div className={`font-bold border-b border-white/10 pb-1 mb-1.5 text-center ${currentStyle.spBoxPtn.titleColor}`}>
-                    สภ. ({pattaniBreakdown.sp.length} แห่ง)
-                    <div className={`text-[10px] font-mono px-2 py-0.5 rounded-full inline-block mt-1 border ${currentStyle.spBoxPtn.badge}`}>[{pattaniBreakdown.spPos}/{pattaniBreakdown.spOcc}]</div>
+                <div className={`${currentStyle.spBoxPtn.bg} p-3.5 rounded-2xl shadow-xl text-xs border ${currentStyle.spBoxPtn.border} flex flex-col min-h-[640px]`}>
+                  <div className={`font-bold border-b border-white/10 pb-2 mb-2 text-center ${currentStyle.spBoxPtn.titleColor}`}>
+                    <div>สภ. ในสังกัด</div>
+                    <div className="text-[11px] font-normal opacity-90">({pattaniBreakdown.sp.length} สถานี)</div>
                   </div>
-                  <ul className={`space-y-1 text-[11px] ${currentStyle.spBoxPtn.itemText} max-h-48 overflow-y-auto`}>
+                  <ul className={`space-y-1.5 text-[11px] ${currentStyle.spBoxPtn.itemText} flex-1 overflow-y-auto min-h-[520px] max-h-[740px] chart-scrollbar pr-1`}>
                     {pattaniBreakdown.sp.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className={`truncate cursor-pointer ${currentStyle.spBoxPtn.hoverText} hover:translate-x-0.5 transition-all`}
+                        className={`truncate cursor-pointer ${currentStyle.spBoxPtn.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
                         title="คลิกดูตัวคนใน สภ. นี้"
                       >
-                        • {u.name}
+                        <span>• {u.name}</span>
                       </li>
                     ))}
                   </ul>
@@ -972,40 +985,40 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                 <div className="text-[11px] font-mono mt-0.5 opacity-90">[{nrtSum.totalAll_pos}/{nrtSum.totalAll_occ}]</div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 w-full">
-                <div className={`${currentStyle.adminBox.bg} p-3 rounded-2xl shadow-lg text-xs border ${currentStyle.adminBox.border}`}>
-                  <div className={`font-bold border-b border-white/10 pb-1 mb-1.5 text-center ${currentStyle.adminBox.titleColor}`}>
-                    หน่วยอำนวยการ<br />และสนับสนุน
-                    <div className={`text-[10px] font-mono px-2 py-0.5 rounded-full inline-block mt-1 border ${currentStyle.adminBox.badge}`}>[{narathiwatBreakdown.adminPos}/{narathiwatBreakdown.adminOcc}]</div>
+              <div className="grid grid-cols-2 gap-2.5 w-full items-stretch">
+                <div className={`${currentStyle.adminBox.bg} p-3.5 rounded-2xl shadow-xl text-xs border ${currentStyle.adminBox.border} flex flex-col min-h-[640px]`}>
+                  <div className={`font-bold border-b border-white/10 pb-2 mb-2 text-center ${currentStyle.adminBox.titleColor}`}>
+                    <div>หน่วยอำนวยการ</div>
+                    <div className="text-[11px] font-normal opacity-90">และสนับสนุน ({narathiwatBreakdown.admin.length} หน่วย)</div>
                   </div>
-                  <ul className={`space-y-1 text-[11px] ${currentStyle.adminBox.itemText}`}>
+                  <ul className={`space-y-1.5 text-[11px] ${currentStyle.adminBox.itemText} flex-1 overflow-y-auto min-h-[520px] max-h-[740px] chart-scrollbar pr-1`}>
                     {narathiwatBreakdown.admin.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className={`truncate cursor-pointer ${currentStyle.adminBox.hoverText} hover:translate-x-0.5 transition-all`}
+                        className={`truncate cursor-pointer ${currentStyle.adminBox.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
                         title="คลิกดูตัวคนในหน่วยนี้"
                       >
-                        • {u.name}
+                        <span>• {u.name}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className={`${currentStyle.spBoxNrt.bg} p-3 rounded-2xl shadow-lg text-xs border ${currentStyle.spBoxNrt.border}`}>
-                  <div className={`font-bold border-b border-white/10 pb-1 mb-1.5 text-center ${currentStyle.spBoxNrt.titleColor}`}>
-                    สภ. ({narathiwatBreakdown.sp.length} แห่ง)
-                    <div className={`text-[10px] font-mono px-2 py-0.5 rounded-full inline-block mt-1 border ${currentStyle.spBoxNrt.badge}`}>[{narathiwatBreakdown.spPos}/{narathiwatBreakdown.spOcc}]</div>
+                <div className={`${currentStyle.spBoxNrt.bg} p-3.5 rounded-2xl shadow-xl text-xs border ${currentStyle.spBoxNrt.border} flex flex-col min-h-[640px]`}>
+                  <div className={`font-bold border-b border-white/10 pb-2 mb-2 text-center ${currentStyle.spBoxNrt.titleColor}`}>
+                    <div>สภ. ในสังกัด</div>
+                    <div className="text-[11px] font-normal opacity-90">({narathiwatBreakdown.sp.length} สถานี)</div>
                   </div>
-                  <ul className={`space-y-1 text-[11px] ${currentStyle.spBoxNrt.itemText} max-h-48 overflow-y-auto`}>
+                  <ul className={`space-y-1.5 text-[11px] ${currentStyle.spBoxNrt.itemText} flex-1 overflow-y-auto min-h-[520px] max-h-[740px] chart-scrollbar pr-1`}>
                     {narathiwatBreakdown.sp.map((u) => (
                       <li
                         key={u.id}
                         onClick={() => handleUnitClick(u)}
-                        className={`truncate cursor-pointer ${currentStyle.spBoxNrt.hoverText} hover:translate-x-0.5 transition-all`}
+                        className={`truncate cursor-pointer ${currentStyle.spBoxNrt.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
                         title="คลิกดูตัวคนใน สภ. นี้"
                       >
-                        • {u.name}
+                        <span>• {u.name}</span>
                       </li>
                     ))}
                   </ul>
@@ -1037,110 +1050,102 @@ export const OrganizationTree: React.FC<OrgTreeProps> = ({
                 </div>
               </div>
 
-              {/* 4 Districts sub-grid */}
-              <div className="grid grid-cols-2 gap-2 w-full">
-                <div className={`${currentStyle.districtsBox.bg} p-2.5 rounded-xl shadow-md text-xs border ${currentStyle.districtsBox.border}`}>
-                  <div className={`font-bold text-center border-b border-white/10 pb-1 mb-1 ${currentStyle.districtsBox.titleColor}`}>
-                    อ.นาทวี
+              {/* 4 Districts sub-grid matching the elongated 640px height */}
+              <div className="grid grid-cols-2 gap-2.5 w-full items-stretch min-h-[640px]">
+                {/* District 1: นาทวี */}
+                <div className={`${currentStyle.districtsBox.bg} p-3 rounded-2xl shadow-xl text-xs border ${currentStyle.districtsBox.border} flex flex-col justify-between min-h-[305px]`}>
+                  <div>
+                    <div className={`font-bold text-center border-b border-white/10 pb-1.5 mb-2 ${currentStyle.districtsBox.titleColor}`}>
+                      <div>อ.นาทวี (2 สภ.)</div>
+                    </div>
+                    <ul className={`text-[11px] space-y-2 ${currentStyle.districtsBox.itemText}`}>
+                      {nathaweeStats.list.map((u) => (
+                        <li
+                          key={u.id}
+                          onClick={() => handleUnitClick(u)}
+                          className={`cursor-pointer ${currentStyle.districtsBox.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
+                          title="คลิกดูตัวคนใน สภ. นี้"
+                        >
+                          <span>• {u.name}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className={`text-[11px] space-y-1 ${currentStyle.districtsBox.itemText}`}>
-                    <li
-                      onClick={() => {
-                        const u = records.find(r => r.name.includes('สภ.นาทวี'));
-                        if (u) handleUnitClick(u);
-                      }}
-                      className={`cursor-pointer ${currentStyle.districtsBox.hoverText} transition-colors`}
-                    >
-                      • สภ.นาทวี
-                    </li>
-                    <li
-                      onClick={() => {
-                        const u = records.find(r => r.name.includes('สภ.สะท้อน'));
-                        if (u) handleUnitClick(u);
-                      }}
-                      className={`cursor-pointer ${currentStyle.districtsBox.hoverText} transition-colors`}
-                    >
-                      • สภ.สะท้อน
-                    </li>
-                  </ul>
+                  <div className="pt-2 border-t border-white/10 text-[10px] text-center text-rose-300/80">
+                    พื้นที่ความมั่นคงสีแดง
+                  </div>
                 </div>
 
-                <div className={`${currentStyle.districtsBox.bg} p-2.5 rounded-xl shadow-md text-xs border ${currentStyle.districtsBox.border}`}>
-                  <div className={`font-bold text-center border-b border-white/10 pb-1 mb-1 ${currentStyle.districtsBox.titleColor}`}>
-                    อ.เทพา
+                {/* District 2: เทพา */}
+                <div className={`${currentStyle.districtsBox.bg} p-3 rounded-2xl shadow-xl text-xs border ${currentStyle.districtsBox.border} flex flex-col justify-between min-h-[305px]`}>
+                  <div>
+                    <div className={`font-bold text-center border-b border-white/10 pb-1.5 mb-2 ${currentStyle.districtsBox.titleColor}`}>
+                      <div>อ.เทพา (2 สภ.)</div>
+                    </div>
+                    <ul className={`text-[11px] space-y-2 ${currentStyle.districtsBox.itemText}`}>
+                      {thepaStats.list.map((u) => (
+                        <li
+                          key={u.id}
+                          onClick={() => handleUnitClick(u)}
+                          className={`cursor-pointer ${currentStyle.districtsBox.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
+                          title="คลิกดูตัวคนใน สภ. นี้"
+                        >
+                          <span>• {u.name}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className={`text-[11px] space-y-1 ${currentStyle.districtsBox.itemText}`}>
-                    <li
-                      onClick={() => {
-                        const u = records.find(r => r.name.includes('สภ.เทพา'));
-                        if (u) handleUnitClick(u);
-                      }}
-                      className={`cursor-pointer ${currentStyle.districtsBox.hoverText} transition-colors`}
-                    >
-                      • สภ.เทพา
-                    </li>
-                    <li
-                      onClick={() => {
-                        const u = records.find(r => r.name.includes('สภ.ห้วยปลิง'));
-                        if (u) handleUnitClick(u);
-                      }}
-                      className={`cursor-pointer ${currentStyle.districtsBox.hoverText} transition-colors`}
-                    >
-                      • สภ.ห้วยปลิง
-                    </li>
-                  </ul>
+                  <div className="pt-2 border-t border-white/10 text-[10px] text-center text-rose-300/80">
+                    พื้นที่ความมั่นคงสีแดง
+                  </div>
                 </div>
 
-                <div className={`${currentStyle.districtsBox.bg} p-2.5 rounded-xl shadow-md text-xs border ${currentStyle.districtsBox.border}`}>
-                  <div className={`font-bold text-center border-b border-white/10 pb-1 mb-1 ${currentStyle.districtsBox.titleColor}`}>
-                    อ.สะบ้าย้อย
+                {/* District 3: สะบ้าย้อย */}
+                <div className={`${currentStyle.districtsBox.bg} p-3 rounded-2xl shadow-xl text-xs border ${currentStyle.districtsBox.border} flex flex-col justify-between min-h-[305px]`}>
+                  <div>
+                    <div className={`font-bold text-center border-b border-white/10 pb-1.5 mb-2 ${currentStyle.districtsBox.titleColor}`}>
+                      <div>อ.สะบ้าย้อย (2 สภ.)</div>
+                    </div>
+                    <ul className={`text-[11px] space-y-2 ${currentStyle.districtsBox.itemText}`}>
+                      {sabaStats.list.map((u) => (
+                        <li
+                          key={u.id}
+                          onClick={() => handleUnitClick(u)}
+                          className={`cursor-pointer ${currentStyle.districtsBox.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
+                          title="คลิกดูตัวคนใน สภ. นี้"
+                        >
+                          <span>• {u.name}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className={`text-[11px] space-y-1 ${currentStyle.districtsBox.itemText}`}>
-                    <li
-                      onClick={() => {
-                        const u = records.find(r => r.name.includes('สภ.สะบ้าย้อย'));
-                        if (u) handleUnitClick(u);
-                      }}
-                      className={`cursor-pointer ${currentStyle.districtsBox.hoverText} transition-colors`}
-                    >
-                      • สภ.สะบ้าย้อย
-                    </li>
-                    <li
-                      onClick={() => {
-                        const u = records.find(r => r.name.includes('สภ.บ้านโหนด'));
-                        if (u) handleUnitClick(u);
-                      }}
-                      className={`cursor-pointer ${currentStyle.districtsBox.hoverText} transition-colors`}
-                    >
-                      • สภ.บ้านโหนด
-                    </li>
-                  </ul>
+                  <div className="pt-2 border-t border-white/10 text-[10px] text-center text-rose-300/80">
+                    พื้นที่ความมั่นคงสีแดง
+                  </div>
                 </div>
 
-                <div className={`${currentStyle.districtsBox.bg} p-2.5 rounded-xl shadow-md text-xs border ${currentStyle.districtsBox.border}`}>
-                  <div className={`font-bold text-center border-b border-white/10 pb-1 mb-1 ${currentStyle.districtsBox.titleColor}`}>
-                    อ.จะนะ
+                {/* District 4: จะนะ */}
+                <div className={`${currentStyle.districtsBox.bg} p-3 rounded-2xl shadow-xl text-xs border ${currentStyle.districtsBox.border} flex flex-col justify-between min-h-[305px]`}>
+                  <div>
+                    <div className={`font-bold text-center border-b border-white/10 pb-1.5 mb-2 ${currentStyle.districtsBox.titleColor}`}>
+                      <div>อ.จะนะ (2 สภ.)</div>
+                    </div>
+                    <ul className={`text-[11px] space-y-2 ${currentStyle.districtsBox.itemText}`}>
+                      {chanaStats.list.map((u) => (
+                        <li
+                          key={u.id}
+                          onClick={() => handleUnitClick(u)}
+                          className={`cursor-pointer ${currentStyle.districtsBox.hoverText} hover:translate-x-0.5 transition-all p-1.5 rounded-lg hover:bg-white/10 flex items-center`}
+                          title="คลิกดูตัวคนใน สภ. นี้"
+                        >
+                          <span>• {u.name}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className={`text-[11px] space-y-1 ${currentStyle.districtsBox.itemText}`}>
-                    <li
-                      onClick={() => {
-                        const u = records.find(r => r.name.includes('สภ.จะนะ'));
-                        if (u) handleUnitClick(u);
-                      }}
-                      className={`cursor-pointer ${currentStyle.districtsBox.hoverText} transition-colors`}
-                    >
-                      • สภ.จะนะ
-                    </li>
-                    <li
-                      onClick={() => {
-                        const u = records.find(r => r.name.includes('สภ.ควนมีด'));
-                        if (u) handleUnitClick(u);
-                      }}
-                      className={`cursor-pointer ${currentStyle.districtsBox.hoverText} transition-colors`}
-                    >
-                      • สภ.ควนมีด
-                    </li>
-                  </ul>
+                  <div className="pt-2 border-t border-white/10 text-[10px] text-center text-rose-300/80">
+                    พื้นที่ความมั่นคงสีแดง
+                  </div>
                 </div>
               </div>
             </div>
